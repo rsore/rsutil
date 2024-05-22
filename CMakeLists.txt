@@ -12,6 +12,7 @@ add_library(rsutil STATIC
         src/time.cpp
         include/rsutil/fundamental.hpp
         include/rsutil/assert.hpp
+        include/rsutil/scientific.hpp
 )
 
 target_include_directories(rsutil PUBLIC
