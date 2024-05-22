@@ -10,9 +10,11 @@ namespace rsutil
 }
 
 constexpr void
-rsutil::dynamic_assert(const bool expr, const std::string &msg)
+rsutil::dynamic_assert([[maybe_unused]] const bool expr, [[maybe_unused]] const std::string &msg)
 {
+#if RSUTIL_ENABLE_DYNAMIC_ASSERT == 1
     assert(expr && msg.c_str());
+#endif
 }
 
 #endif

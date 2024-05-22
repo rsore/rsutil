@@ -14,7 +14,14 @@ add_library(rsutil STATIC
         include/rsutil/assert.hpp
 )
 
-target_include_directories(rsutil
-        PUBLIC
+target_include_directories(rsutil PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include
+)
+
+option(RSUTIL_ENABLE_DYNAMIC_ASSERTS "Enable dynamic asserts" ON)
+message(STATUS "RSUTIL_ENABLE_DYNAMIC_ASSERTS is ${RSUTIL_ENABLE_DYNAMIC_ASSERTS}")
+
+target_compile_definitions(rsutil PUBLIC
+        $<$<BOOL:${RSUTIL_ENABLE_DYNAMIC_ASSERTS}>:RSUTIL_ENABLE_DYNAMIC_ASSERT=1>
+        $<$<NOT:$<BOOL:${RSUTIL_ENABLE_DYNAMIC_ASSERTS}>>:RSUTIL_ENABLE_DYNAMIC_ASSERT=0>
 )
