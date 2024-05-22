@@ -13,6 +13,8 @@ add_library(rsutil STATIC
         include/rsutil/fundamental.hpp
         include/rsutil/assert.hpp
         include/rsutil/scientific.hpp
+        include/rsutil/format.hpp
+        src/format.cpp
 )
 
 target_include_directories(rsutil PUBLIC
