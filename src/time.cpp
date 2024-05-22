@@ -82,9 +82,9 @@ rsutil::timer::elapsed_nanoseconds() const
 }
 
 void
-rsutil::scheduleInvocation(std::function<void()> func, const high_precision_float delayMs)
+rsutil::schedule_invocation(std::function<void()> func, const uint64 delay_nanosecs)
 {
-    const std::chrono::duration<high_precision_float, std::milli> delay(delayMs);
+    const std::chrono::duration<high_precision_float, std::nano> delay(delay_nanosecs);
     std::jthread(
         [callable = std::forward<std::function<void()>>(func), delay]
         {

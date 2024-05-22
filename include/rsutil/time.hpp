@@ -66,7 +66,7 @@ namespace rsutil
         return (elapsed_nanoseconds() / 1000);
     }
 
-    void scheduleInvocation(std::function<void()>, high_precision_float);
+    void schedule_invocation(std::function<void()>, uint64);
 
 } // namespace rsutil
 
