@@ -1,17 +1,18 @@
 #ifndef RSUTIL_TIME_HPP
 #define RSUTIL_TIME_HPP
 
-#include <rsutil/fundamental.hpp>
 #include <rsutil/assert.hpp>
+#include <rsutil/fundamental.hpp>
 
 #include <chrono>
+#include <functional>
 #include <thread>
 
 namespace rsutil
 {
     class timer
     {
-    public:
+      public:
         explicit timer();
 
         ~timer() = default;
@@ -38,7 +39,7 @@ namespace rsutil
 
         [[nodiscard]] uint64 elapsed_nanoseconds() const;
 
-    private:
+      private:
         std::chrono::time_point<std::chrono::high_resolution_clock> _start;
 
         std::chrono::time_point<std::chrono::high_resolution_clock> _pause_time;
@@ -47,29 +48,26 @@ namespace rsutil
         std::thread::id                                             _owner;
     };
 
-    inline
-    high_precision_float
+    inline high_precision_float
     timer::elapsed_seconds() const
     {
         return (static_cast<high_precision_float>(elapsed_microseconds()) / 1'000'000.0);
     }
 
-    inline
-    high_precision_float
+    inline high_precision_float
     timer::elaped_milliseconds() const
     {
         return (static_cast<high_precision_float>(elapsed_microseconds()) / 1'000.0);
     }
 
-    inline
-    uint64
+    inline uint64
     timer::elapsed_microseconds() const
     {
         return (elapsed_nanoseconds() / 1000);
     }
 
-    template <typename Func>
-    void scheduleInvocation(Func &&callable, high_precision_float delayMs);
-}
+    void scheduleInvocation(std::function<void()>, high_precision_float);
+
+} // namespace rsutil
 
 #endif
