@@ -11,7 +11,7 @@ namespace rsutil
 
 }
 
-template <typename integral, typename = std::enable_if_t<std::is_integral_v<integral>>>
+template <typename integral, typename>
 constexpr integral
 rsutil::wrapping_mod(const integral a, const integral b)
 {
