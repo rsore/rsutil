@@ -1,7 +1,7 @@
 #include <rsutil/format.hpp>
 
 int
-rsutil::extract_number(std::stringstream &ss)
+rsutil::rsutil_internal::format_arg_extract_number(std::stringstream &ss)
 {
     std::string str;
     char        ch;
@@ -28,7 +28,7 @@ rsutil::extract_number(std::stringstream &ss)
 }
 
 char
-rsutil::extract_pad_char(std::stringstream &ss)
+rsutil::rsutil_internal::format_arg_extract_pad_char(std::stringstream &ss)
 {
     char ch;
     ss.get(ch);
@@ -44,7 +44,7 @@ rsutil::extract_pad_char(std::stringstream &ss)
 }
 
 std::optional<int>
-rsutil::extract_precision(std::stringstream &ss)
+rsutil::rsutil_internal::format_arg_extract_precision(std::stringstream &ss)
 {
     char ch;
     ss.get(ch);
@@ -55,6 +55,6 @@ rsutil::extract_precision(std::stringstream &ss)
         return std::nullopt;
     }
 
-    const int precision = extract_number(ss);
+    const int precision = format_arg_extract_number(ss);
     return precision;
 }
