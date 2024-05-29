@@ -1,8 +1,6 @@
 #ifndef RSUTIL_FUNDAMENTAL_HPP
 #define RSUTIL_FUNDAMENTAL_HPP
 
-#include <rsutil/assert.hpp>
-
 #include <cstdint>
 
 namespace rsutil
@@ -20,7 +18,7 @@ namespace rsutil
     using high_precision_float = long double;
     using float64              = double;
     using float32              = float;
-}
+} // namespace rsutil
 
 static_assert(sizeof(rsutil::uint32) == 4);
 static_assert(sizeof(rsutil::uint32) == 4);

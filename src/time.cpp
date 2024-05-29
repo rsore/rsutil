@@ -31,7 +31,7 @@ rsutil::timer::operator=(const timer &other)
 void
 rsutil::timer::reset()
 {
-    dynamic_assert(std::this_thread::get_id() == _owner,
+    RSUTIL_DYN_ASSERT(std::this_thread::get_id() == _owner,
                    "[ rsutil::timer::reset() ] Function invocation can only be done from owning thread");
 
     _start          = std::chrono::high_resolution_clock::now();
@@ -43,10 +43,10 @@ rsutil::timer::reset()
 void
 rsutil::timer::pause()
 {
-    dynamic_assert(std::this_thread::get_id() == _owner,
+    RSUTIL_DYN_ASSERT(std::this_thread::get_id() == _owner,
                    "[ rsutil::timer::pause() ] Function invocation can only be done by the owning thread");
 
-    dynamic_assert(_is_paused == false, "[ rsutil::timer::pause() ] timer is already paused");
+    RSUTIL_DYN_ASSERT(_is_paused == false, "[ rsutil::timer::pause() ] timer is already paused");
 
     _pause_time = std::chrono::high_resolution_clock::now();
     _is_paused  = true;
@@ -55,10 +55,10 @@ rsutil::timer::pause()
 void
 rsutil::timer::resume()
 {
-    dynamic_assert(std::this_thread::get_id() == _owner,
+    RSUTIL_DYN_ASSERT(std::this_thread::get_id() == _owner,
                    "[ rsutil::timer::resume() ] Function invocation can only be done by the owning thread");
 
-    dynamic_assert(_is_paused == true, "[ rsutil::timer::resume() ] timer is not paused");
+    RSUTIL_DYN_ASSERT(_is_paused == true, "[ rsutil::timer::resume() ] timer is not paused");
 
     const auto now = std::chrono::high_resolution_clock::now();
     _pause_duration += now - _pause_time;

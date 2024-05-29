@@ -16,6 +16,7 @@ add_library(rsutil STATIC
         include/rsutil/format.hpp
         src/format.cpp
         include/rsutil/math.hpp
+        include/rsutil/file_system.hpp
 )
 
 target_include_directories(rsutil PUBLIC
