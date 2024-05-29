@@ -9,9 +9,9 @@
 
 #if RSUTIL_ENABLE_DYNAMIC_ASSERT
 
-#    define RSUTIL_DYN_ASSERT(expr, msg) rsutil::dynamic_assert(expr, RSUTIL_CURRENT_SOURCE_LOCATION, msg)
+#    define RSUTIL_DYN_ASSERT(expr, msg) rsutil::rsutil_internal::dynamic_assert(expr, RSUTIL_CURRENT_SOURCE_LOCATION, msg)
 
-namespace rsutil
+namespace rsutil::rsutil_internal
 {
 
     constexpr void dynamic_assert(bool, const source_location &, const std::string & = "") noexcept;
@@ -19,7 +19,7 @@ namespace rsutil
 } // namespace rsutil
 
 constexpr void
-rsutil::dynamic_assert([[maybe_unused]] const bool expr, const source_location &loc,
+rsutil::rsutil_internal::dynamic_assert([[maybe_unused]] const bool expr, const source_location &loc,
                        [[maybe_unused]] const std::string &msg) noexcept
 {
     if (!expr)
