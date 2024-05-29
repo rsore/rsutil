@@ -19,11 +19,8 @@ namespace rsutil
 
     template <typename type>
     void format_arg(std::ostringstream &, std::string_view, type);
-
-    [[nodiscard]] int                extract_number(std::stringstream &ss);
-    [[nodiscard]] char               extract_pad_char(std::stringstream &ss);
-    [[nodiscard]] std::optional<int> extract_precision(std::stringstream &ss);
 } // namespace rsutil
+
 
 template <typename... Args>
 std::string
@@ -32,7 +29,7 @@ rsutil::format_string(const std::string_view fmt, Args &&...args)
     std::ostringstream oss;
 
     std::size_t start{};
-    std::size_t pos{};
+    std::size_t pos;
 
     auto process_argument = [&](auto &&arg)
     {
@@ -60,6 +57,13 @@ rsutil::format_string(const std::string_view fmt, Args &&...args)
     return oss.str();
 }
 
+namespace rsutil::rsutil_internal
+{
+    [[nodiscard]] int                format_arg_extract_number(std::stringstream &ss);
+    [[nodiscard]] char               format_arg_extract_pad_char(std::stringstream &ss);
+    [[nodiscard]] std::optional<int> format_arg_extract_precision(std::stringstream &ss);
+}
+
 template <typename type>
 void
 rsutil::format_arg(std::ostringstream &oss, std::string_view fmt, type arg)
@@ -71,13 +75,13 @@ rsutil::format_arg(std::ostringstream &oss, std::string_view fmt, type arg)
     {
         if (ch == pad_char_symbol)
         {
-            const char pad_char  = extract_pad_char(ss);
-            const auto pad_width = extract_number(ss);
+            const char pad_char  = rsutil_internal::format_arg_extract_pad_char(ss);
+            const auto pad_width = rsutil_internal::format_arg_extract_number(ss);
             oss << std::string(pad_width, pad_char);
         }
         else if (ch == arg_char_symbol)
         {
-            const auto precision = extract_precision(ss);
+            const auto precision = rsutil_internal::format_arg_extract_precision(ss);
             if (precision.has_value())
             {
                 const std::streamsize initial_precision = oss.precision();
